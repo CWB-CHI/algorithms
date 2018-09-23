@@ -6,9 +6,11 @@ public class MergeSort {
 
 	public static void sort(int[] arr, int low, int height) {
 		if (low < height) {
+			// 递归先将数组从中间分成两部分。直到左右两部分只剩一个元素
 			int mid = (low + height) / 2;
 			sort(arr, low, mid);
 			sort(arr, mid + 1, height);
+			// 将左右两部分进行合并
 			merge(arr, low, mid, height);
 
 		}

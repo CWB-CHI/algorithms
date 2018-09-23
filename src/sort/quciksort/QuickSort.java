@@ -1,16 +1,15 @@
 package sort.quciksort;
 
 import java.util.Arrays;
-import java.util.Random;
 
 public class QuickSort {
+
 	public static int partition(int[] arr, int low, int height) {
+
+		int pivot = arr[height];
+
 		int i = low - 1;
-		// int pivotIndex = height;
-		int pivotIndex = new Random().nextInt(height - low + 1) + low;
-		int pivot = arr[pivotIndex];
-		arr[pivotIndex] = arr[height];
-		arr[height] = pivot;
+
 		for (int j = low; j <= height - 1; j++) {
 			if (arr[j] <= pivot) {
 				i++;
@@ -19,18 +18,21 @@ public class QuickSort {
 				arr[j] = temp;
 			}
 		}
-		int temp = arr[++i];
+
+		i++;
+		int temp = arr[i];
 		arr[i] = arr[height];
 		arr[height] = temp;
 		return i;
 	}
 
-	public static void quickSort(int[] arr, int low, int height) {
+	public static void sort(int[] arr, int low, int height) {
 		if (low < height) {
-			int pivot = partition(arr, low, height);
-
-			quickSort(arr, low, pivot - 1);
-			quickSort(arr, pivot + 1, height);
+			// 用最后一个元素做pivot，然后分成两部分，比pivot小的放左边，大的放右边，pivot放在中间
+			int pivotIndex = partition(arr, low, height);
+			// 对左边和右边的进行同样的操作
+			sort(arr, low, pivotIndex - 1);
+			sort(arr, pivotIndex + 1, height);
 		}
 	}
 
@@ -39,7 +41,8 @@ public class QuickSort {
 		int n = arr.length;
 		System.out.println(Arrays.toString(arr));
 
-		quickSort(arr, 0, n - 1);
+		sort(arr, 0, n - 1);
 		System.out.println(Arrays.toString(arr));
 	}
+
 }
